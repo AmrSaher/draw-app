@@ -1,6 +1,6 @@
 <template>
     <div class="board-container">
-        <canvas id="board"></canvas>
+        <canvas id="board" ref="canvas" @mousedown="startDraw" @mouseup="isDrawing = false;" @mousemove="drawing"></canvas>
     </div>
 </template>
 
@@ -9,7 +9,9 @@ export default {
     name: "Canvas",
     props: ['tool', 'fillColor', 'size'],
     mounted() {
-        this.canvas = document.querySelector("#board");
+        this.canvas = this.$refs.canvas;
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight - 70;
         this.ctx = this.canvas.getContext("2d");
 
         this.prevMouseX = null;
@@ -21,10 +23,6 @@ export default {
             this.canvas.width = this.canvas.offsetWidth;
             this.canvas.height = this.canvas.offsetHeight;
         });
-
-        this.canvas.addEventListener("mousedown", this.startDraw);
-        this.canvas.addEventListener("mouseup", () => { this.isDrawing = false; });
-        this.canvas.addEventListener("mousemove", this.drawing);
     },
     methods: {
         drawing(e) {
@@ -80,9 +78,9 @@ export default {
     // overflow: auto;
     width: 100%;
     height: calc(100% - 68px);
-    #board {
-        width: 100%;
-        height: 100%;
-    }
+    // #board {
+    //     width: 100%;
+    //     height: 100%;
+    // }
 }
 </style>
