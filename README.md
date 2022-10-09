@@ -1,4 +1,5 @@
 # draw-app
+color options
 
 ## Project setup
 ```
