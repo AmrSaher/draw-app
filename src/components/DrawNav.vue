@@ -1,71 +1,71 @@
 <template>
     <ul class="nav d-flex justify-content-center align-items-center">
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <span class="nav-link">
                 <i class="bi bi-cursor-fill" @click="selectTool('mouse')"></i>
-            </a>
+            </span>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <span class="nav-link">
                 <i class="bi bi-brush-fill" @click="selectTool('brush')"></i>
-            </a>
+            </span>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <span class="nav-link">
                 <i class="bi bi-eraser-fill" @click="selectTool('eraser')"></i>
-            </a>
+            </span>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <span class="nav-link">
                 <i class="bi bi-square" @click="selectTool('square')"></i>
-            </a>
+            </span>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <span class="nav-link">
                 <i class="bi bi-circle" @click="selectTool('circle')"></i>
-            </a>
+            </span>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <span class="nav-link">
                 <i class="bi bi-triangle" @click="selectTool('triangle')"></i>
-            </a>
+            </span>
         </li>
         <li class="nav-item" @click="fullscreen">
-            <a class="nav-link" href="#">
+            <span class="nav-link">
                 <i class="bi bi-fullscreen"></i>
-            </a>
+            </span>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Size</a>
+            <span class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Size</span>
             <ul class="dropdown-menu bg-dark">
-                <li v-for="i in 15" :key="i" @click="setSize(i)"><a class="dropdown-item text-white" href="#">{{ i }}</a></li>
+                <li v-for="i in 15" :key="i" @click="setSize(i)"><a class="dropdown-item text-white">{{ i }}</a></li>
             </ul>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Color</a>
+            <span class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Color</span>
             <ul class="dropdown-menu bg-dark">
-                <li><a class="dropdown-item text-white" href="#" @click="selectColor('red')">Red</a></li>
-                <li><a class="dropdown-item text-white" href="#" @click="selectColor('blue')">Blue</a></li>
-                <li><a class="dropdown-item text-white" href="#" @click="selectColor('yellow')">Yellow</a></li>
-                <li><a class="dropdown-item text-white" href="#" @click="selectColor('white')">White</a></li>
+                <li><a class="dropdown-item text-white" @click="selectColor('red')">Red</a></li>
+                <li><a class="dropdown-item text-white" @click="selectColor('blue')">Blue</a></li>
+                <li><a class="dropdown-item text-white" @click="selectColor('yellow')">Yellow</a></li>
+                <li><a class="dropdown-item text-white" @click="selectColor('white')">White</a></li>
             </ul>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Fill color</a>
+            <span class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Fill color</span>
             <ul class="dropdown-menu bg-dark">
-                <li><a class="dropdown-item text-white" href="#" @click="fillColor(true)">enable</a></li>
-                <li><a class="dropdown-item text-white" href="#" @click="fillColor(false)">disable</a></li>
+                <li><a class="dropdown-item text-white" @click="fillColor(true)">enable</a></li>
+                <li><a class="dropdown-item text-white" @click="fillColor(false)">disable</a></li>
             </ul>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <span class="nav-link">
                 <i class="bi bi-file-minus" @click="selectTool('clear')"></i>
-            </a>
+            </span>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <span class="nav-link">
                 <i class="bi bi-box-arrow-down" @click="selectTool('download')"></i>
-            </a>
+            </span>
         </li>
     </ul>
 </template>

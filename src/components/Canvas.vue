@@ -29,7 +29,8 @@ export default {
     watch: {
         tool(v) {
             if (v == "clear") {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.ctx.fillStyle = "rgb(33,37,41)";
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
             } else if (v == "download") {
                 let data = this.canvas.toDataURL("image/png");
                 let link = document.createElement('a');
