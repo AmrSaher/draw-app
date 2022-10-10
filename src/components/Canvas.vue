@@ -7,12 +7,14 @@
 <script>
 export default {
     name: "Canvas",
-    props: ['tool', 'fillColor', 'size'],
+    props: ['tool', 'fillColor', 'size', 'color'],
     mounted() {
         this.canvas = this.$refs.canvas;
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight - 70;
         this.ctx = this.canvas.getContext("2d");
+        this.ctx.fillStyle = "rgb(33,37,41)";
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.prevMouseX = null;
         this.prevMouseY = null;
@@ -24,13 +26,28 @@ export default {
             this.canvas.height = this.canvas.offsetHeight;
         });
     },
+    watch: {
+        tool(v) {
+            if (v == "clear") {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            } else if (v == "download") {
+                let data = this.canvas.toDataURL("image/png");
+                let link = document.createElement('a');
+                link.download = "sketch.png";
+                link.href = data;
+                link.click();
+            }
+        }
+    },
     methods: {
         drawing(e) {
             if (!this.isDrawing) return;
             this.ctx.putImageData(this.snapshot, 0, 0);
-            
-            if (this.tool == "brush") {
-                this.ctx.strokeStyle = "#fff";
+            this.ctx.strokeStyle = this.color;
+            this.ctx.fillStyle = this.color;
+
+            if (this.tool == "brush" || this.tool == "eraser") {
+                this.ctx.strokeStyle = this.tool == "eraser" ? "rgb(33,37,41)" : this.color;
                 this.ctx.lineTo(e.offsetX, e.offsetY);
                 this.ctx.stroke();
             } else if (this.tool == "square") {

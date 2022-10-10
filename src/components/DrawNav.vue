@@ -44,10 +44,10 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Color</a>
             <ul class="dropdown-menu bg-dark">
-                <li><a class="dropdown-item text-white" href="#">Red</a></li>
-                <li><a class="dropdown-item text-white" href="#">Blue</a></li>
-                <li><a class="dropdown-item text-white" href="#">Yellow</a></li>
-                <li><a class="dropdown-item text-white" href="#">White</a></li>
+                <li><a class="dropdown-item text-white" href="#" @click="selectColor('red')">Red</a></li>
+                <li><a class="dropdown-item text-white" href="#" @click="selectColor('blue')">Blue</a></li>
+                <li><a class="dropdown-item text-white" href="#" @click="selectColor('yellow')">Yellow</a></li>
+                <li><a class="dropdown-item text-white" href="#" @click="selectColor('white')">White</a></li>
             </ul>
         </li>
         <li class="nav-item dropdown">
@@ -64,7 +64,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">
-                <i class="bi bi-box-arrow-down"></i>
+                <i class="bi bi-box-arrow-down" @click="selectTool('download')"></i>
             </a>
         </li>
     </ul>
@@ -80,8 +80,6 @@ export default {
     },
     methods: {
         fullscreen() {
-            document.querySelector("#board").style.width = "100%";
-            document.querySelector("#board").style.height = "100%";
             if (this.isFull) {
                 document.exitFullscreen();
             } else {
@@ -97,6 +95,9 @@ export default {
         },
         setSize(s) {
             this.$emit("changeSize", s);
+        },
+        selectColor(c) {
+            this.$emit("color", c);
         }
     }
 };
