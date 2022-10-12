@@ -86,6 +86,7 @@ export default {
                 document.body.requestFullscreen();
             }
             this.isFull = !this.isFull;
+            this.$emit("changeWindowSize");
         },
         selectTool(tool) {
             this.$emit("selectTool", tool);
@@ -108,6 +109,9 @@ export default {
     padding: 6px 0;
     border-bottom: 1px solid #999;
     flex-wrap: nowrap;
+    // position: fixed;
+    // width: 100%;
+    // z-index: 9999;
     .form-control-color {
         width: 25px;
         height: 25px;

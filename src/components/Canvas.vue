@@ -1,17 +1,17 @@
 <template>
     <div class="board-container">
-        <canvas id="board" ref="canvas" @mousedown="startDraw" @mouseup="isDrawing = false;" @mousemove="drawing"></canvas>
+        <canvas id="board" ref="canvas" @mousedown="startDraw" @touchstart="startDraw" @mouseup="isDrawing = false;" @touchend="isDrawing = false;" @mousemove="drawing" @touchmove="drawWithTouch"></canvas>
     </div>
 </template>
 
 <script>
 export default {
     name: "Canvas",
-    props: ['tool', 'fillColor', 'size', 'color'],
+    props: ['tool', 'fillColor', 'size', 'color', 'full'],
     mounted() {
         this.canvas = this.$refs.canvas;
         this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight - 70;
+        this.canvas.height = window.innerHeight - 67;
         this.ctx = this.canvas.getContext("2d");
         this.ctx.fillStyle = "rgb(33,37,41)";
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -38,6 +38,10 @@ export default {
                 link.href = data;
                 link.click();
             }
+        },
+        full() {
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
         }
     },
     methods: {
@@ -86,6 +90,14 @@ export default {
             this.ctx.lineTo(this.prevMouseX * 2 - e.offsetX, e.offsetY);
             this.ctx.closePath();
             this.fillColor ? this.ctx.fill() : this.ctx.stroke();
+        },
+        drawWithTouch(e) {
+            let touch = e.touches[0];
+            let mouseEvent = new MouseEvent("mousemove", {
+                clientX: touch.clientX,
+                clientY: touch.clientY - 67
+            });
+            this.drawing(mouseEvent);
         }
     }
 };
@@ -94,8 +106,8 @@ export default {
 <style lang="scss" scoped>
 .board-container {
     // overflow: auto;
-    width: 100%;
-    height: calc(100% - 68px);
+    // width: 100%;
+    // height: calc(100% - 68px);
     // #board {
     //     width: 100%;
     //     height: 100%;
