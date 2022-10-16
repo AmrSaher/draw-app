@@ -1,17 +1,22 @@
 <template>
-    <div class="board-container">
-        <canvas id="board" ref="canvas" @mousedown="startDraw" @touchstart="startDraw" @mouseup="isDrawing = false;" @touchend="isDrawing = false;" @mousemove="drawing" @touchmove="drawWithTouch"></canvas>
-    </div>
+    <canvas id="board" ref="canvas" @mousedown="startDraw" @touchstart="startDraw" @mouseup="isDrawing = false;" @touchend="isDrawing = false;" @mousemove="drawing" @touchmove="drawWithTouch"></canvas>
 </template>
 
 <script>
 export default {
     name: "Canvas",
     props: ['tool', 'fillColor', 'size', 'color', 'full'],
+    data() {
+        return {
+            space: 66,
+            normalHeight: 0
+        };
+    },
     mounted() {
         this.canvas = this.$refs.canvas;
         this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight - 67;
+        this.normalHeight = window.innerHeight - this.space;
+        this.canvas.height = this.normalHeight;
         this.ctx = this.canvas.getContext("2d");
         this.ctx.fillStyle = "rgb(33,37,41)";
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -39,9 +44,15 @@ export default {
                 link.click();
             }
         },
-        full() {
-            this.canvas.width = window.innerWidth;
-            this.canvas.height = window.innerHeight;
+        full(v) {
+            this.snapshot = this.ctx.getImageData(0, 0, this.canvas.width, v % 2 == 0 ? screen.height - this.space : this.normalHeight);
+            document.querySelector("#board").height = v % 2 == 0 ? screen.height - this.space : this.normalHeight;
+            this.ctx.putImageData(this.snapshot, 0, 0);
+            // console.log(v % 2 == 0);
+            // window.addEventListener("load", () => {
+            //     this.canvas.width = this.canvas.offsetWidth;
+            //     this.canvas.height = this.canvas.offsetHeight;
+            // });
         }
     },
     methods: {
@@ -95,7 +106,7 @@ export default {
             let touch = e.touches[0];
             let mouseEvent = new MouseEvent("mousemove", {
                 clientX: touch.clientX,
-                clientY: touch.clientY - 67
+                clientY: touch.clientY - this.space
             });
             this.drawing(mouseEvent);
         }
@@ -104,13 +115,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.board-container {
-    // overflow: auto;
-    // width: 100%;
-    // height: calc(100% - 68px);
-    // #board {
-    //     width: 100%;
-    //     height: 100%;
-    // }
+#board {
+    margin: 0;
 }
 </style>

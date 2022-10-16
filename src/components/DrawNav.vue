@@ -38,23 +38,29 @@
         <li class="nav-item dropdown">
             <span class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Size</span>
             <ul class="dropdown-menu bg-dark">
-                <li v-for="i in 15" :key="i" @click="setSize(i)"><a class="dropdown-item text-white">{{ i }}</a></li>
+                <li>
+                    <input type="number" class="form-control bg-dark text-white" v-model="size" @change="setSize">
+                </li>
             </ul>
         </li>
         <li class="nav-item dropdown">
             <span class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Color</span>
             <ul class="dropdown-menu bg-dark">
-                <li><a class="dropdown-item text-white" @click="selectColor('red')">Red</a></li>
+                <!-- <li><a class="dropdown-item text-white" @click="selectColor('red')">Red</a></li>
                 <li><a class="dropdown-item text-white" @click="selectColor('blue')">Blue</a></li>
                 <li><a class="dropdown-item text-white" @click="selectColor('yellow')">Yellow</a></li>
-                <li><a class="dropdown-item text-white" @click="selectColor('white')">White</a></li>
+                <li><a class="dropdown-item text-white" @click="selectColor('white')">White</a></li> -->
+                <li>
+                    <input type="color" class="form-control bg-dark text-white" v-model="color" @change="selectColor">
+                </li>
             </ul>
         </li>
         <li class="nav-item dropdown">
             <span class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Fill color</span>
-            <ul class="dropdown-menu bg-dark">
-                <li><a class="dropdown-item text-white" @click="fillColor(true)">enable</a></li>
-                <li><a class="dropdown-item text-white" @click="fillColor(false)">disable</a></li>
+            <ul class="dropdown-menu bg-dark text-center">
+                <!-- <li><a class="dropdown-item text-white" @click="fillColor(true)">enable</a></li>
+                <li><a class="dropdown-item text-white" @click="fillColor(false)">disable</a></li> -->
+                <input type="checkbox" class="bg-dark text-white w-20" v-model="isFill" @change="fillColor">
             </ul>
         </li>
         <li class="nav-item">
@@ -75,7 +81,10 @@ export default {
     name: 'DrawNav',
     data() {
         return {
-            isFull: false
+            isFull: false,
+            size: 5,
+            color: "white",
+            isFill: false
         };
     },
     methods: {
@@ -91,14 +100,14 @@ export default {
         selectTool(tool) {
             this.$emit("selectTool", tool);
         },
-        fillColor(is) {
-            this.$emit("fillColor", is);
+        fillColor() {
+            this.$emit("fillColor", this.isFill);
         },
-        setSize(s) {
-            this.$emit("changeSize", s);
+        setSize() {
+            this.$emit("changeSize", this.size);
         },
-        selectColor(c) {
-            this.$emit("color", c);
+        selectColor() {
+            this.$emit("color", this.color);
         }
     }
 };
@@ -109,9 +118,6 @@ export default {
     padding: 6px 0;
     border-bottom: 1px solid #999;
     flex-wrap: nowrap;
-    // position: fixed;
-    // width: 100%;
-    // z-index: 9999;
     .form-control-color {
         width: 25px;
         height: 25px;

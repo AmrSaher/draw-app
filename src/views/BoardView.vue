@@ -20,7 +20,7 @@ export default {
             selectedTool: "mouse",
             isFill: false,
             size: 5,
-            color: "yellow",
+            color: "white",
             full: 1
         };
     },
