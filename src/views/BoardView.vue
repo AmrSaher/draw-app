@@ -1,7 +1,7 @@
 <template>
     <div class="board bg-dark">
         <DrawNav @selectTool="selectTool" @fillColor="fillColor" @changeSize="changeSize" @color="selectColor" @changeWindowSize="resizeWindow" />
-        <Canvas :tool="selectedTool" :fillColor="isFill" :size="size" :color="color" :full="full" />
+        <Canvas :tool="selectedTool" @selectTool="selectTool" :fillColor="isFill" :oldTool="oldTool" :size="size" :color="color" :full="full" />
     </div>
 </template>
 
@@ -21,11 +21,13 @@ export default {
             isFill: false,
             size: 5,
             color: "white",
-            full: 1
+            full: 1,
+            oldTool: ''
         };
     },
     methods: {
         selectTool(tool) {
+            this.oldTool = this.selectedTool;
             this.selectedTool = tool;
         },
         fillColor(is) {

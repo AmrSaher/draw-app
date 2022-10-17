@@ -5,7 +5,7 @@
 <script>
 export default {
     name: "Canvas",
-    props: ['tool', 'fillColor', 'size', 'color', 'full'],
+    props: ['tool', 'fillColor', 'size', 'color', 'full', 'oldTool'],
     data() {
         return {
             space: 66,
@@ -36,6 +36,7 @@ export default {
             if (v == "clear") {
                 this.ctx.fillStyle = "rgb(33,37,41)";
                 this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                this.$emit('selectTool', this.oldTool);
             } else if (v == "download") {
                 let data = this.canvas.toDataURL("image/png");
                 let link = document.createElement('a');
@@ -48,11 +49,6 @@ export default {
             this.snapshot = this.ctx.getImageData(0, 0, this.canvas.width, v % 2 == 0 ? screen.height - this.space : this.normalHeight);
             document.querySelector("#board").height = v % 2 == 0 ? screen.height - this.space : this.normalHeight;
             this.ctx.putImageData(this.snapshot, 0, 0);
-            // console.log(v % 2 == 0);
-            // window.addEventListener("load", () => {
-            //     this.canvas.width = this.canvas.offsetWidth;
-            //     this.canvas.height = this.canvas.offsetHeight;
-            // });
         }
     },
     methods: {
@@ -76,8 +72,8 @@ export default {
         },
         startDraw(e) {
             this.isDrawing = true;
-            this.prevMouseX = e.offsetX;
-            this.prevMouseY = e.offsetY;
+            this.prevMouseX = e.offsetX || e.touches[0].clientX;
+            this.prevMouseY = e.offsetY || e.touches[0].clientY;
             this.ctx.beginPath();
             this.ctx.lineWidth = this.size;
             this.snapshot = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
