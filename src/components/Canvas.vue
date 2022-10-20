@@ -1,5 +1,15 @@
 <template>
-    <canvas id="board" ref="canvas" @mousedown="startDraw" @touchstart="startDraw" @mouseup="isDrawing = false;" @touchend="isDrawing = false;" @mousemove="drawing" @touchmove="drawWithTouch"></canvas>
+    <canvas 
+        id="board" 
+        ref="canvas" 
+        @mousedown="startDraw" 
+        @touchstart="startDraw" 
+        @mouseup="isDrawing = false;" 
+        @touchend="isDrawing = false;" 
+        @mousemove="drawing" 
+        @touchmove="drawWithTouch"
+    >
+    </canvas>
 </template>
 
 <script>
@@ -57,6 +67,7 @@ export default {
             this.ctx.putImageData(this.snapshot, 0, 0);
             this.ctx.strokeStyle = this.color;
             this.ctx.fillStyle = this.color;
+            this.ctx.lineCap = 'round';
 
             if (this.tool == "brush" || this.tool == "eraser") {
                 this.ctx.strokeStyle = this.tool == "eraser" ? "rgb(33,37,41)" : this.color;

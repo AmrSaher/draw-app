@@ -46,10 +46,6 @@
         <li class="nav-item dropdown">
             <span class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Color</span>
             <ul class="dropdown-menu bg-dark">
-                <!-- <li><a class="dropdown-item text-white" @click="selectColor('red')">Red</a></li>
-                <li><a class="dropdown-item text-white" @click="selectColor('blue')">Blue</a></li>
-                <li><a class="dropdown-item text-white" @click="selectColor('yellow')">Yellow</a></li>
-                <li><a class="dropdown-item text-white" @click="selectColor('white')">White</a></li> -->
                 <li>
                     <input type="color" class="form-control bg-dark text-white" v-model="color" @change="selectColor">
                 </li>
@@ -58,8 +54,6 @@
         <li class="nav-item dropdown">
             <span class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Fill color</span>
             <ul class="dropdown-menu bg-dark text-center">
-                <!-- <li><a class="dropdown-item text-white" @click="fillColor(true)">enable</a></li>
-                <li><a class="dropdown-item text-white" @click="fillColor(false)">disable</a></li> -->
                 <input type="checkbox" class="bg-dark text-white w-20" v-model="isFill" @change="fillColor">
             </ul>
         </li>
@@ -71,6 +65,16 @@
         <li class="nav-item">
             <span class="nav-link">
                 <i class="bi bi-box-arrow-down" @click="selectTool('download')"></i>
+            </span>
+        </li>
+        <li class="nav-item">
+            <span class="nav-link">
+                <i class="bi bi-plus" @click="selectTool('zoomIn')"></i>
+            </span>
+        </li>
+        <li class="nav-item">
+            <span class="nav-link">
+                <i class="bi bi-dash" @click="selectTool('zoomOut')"></i>
             </span>
         </li>
     </ul>
