@@ -58,6 +58,8 @@ export default {
         full(v) {
             this.snapshot = this.ctx.getImageData(0, 0, this.canvas.width, v % 2 == 0 ? screen.height - this.space : this.normalHeight);
             document.querySelector("#board").height = v % 2 == 0 ? screen.height - this.space : this.normalHeight;
+            this.ctx.fillStyle = "rgb(33,37,41)";
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.putImageData(this.snapshot, 0, 0);
         }
     },
